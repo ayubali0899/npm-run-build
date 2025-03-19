@@ -1,0 +1,76 @@
+// Cloud Kitchen Mobile App (React + TailwindCSS UI)
+import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+
+export default function App() {
+  const [order, setOrder] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    preference: "",
+    date: "",
+  });
+
+  const handleChange = (e) => {
+    setOrder({ ...order, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Order Submitted:", order);
+    alert("Thank you! Your order has been submitted.");
+  };
+
+  return (
+    <div className="min-h-screen bg-white text-gray-800 p-4 max-w-md mx-auto">
+      <header className="text-center py-6">
+        <motion.h1 
+          className="text-3xl font-bold" 
+          initial={{ opacity: 0, y: -20 }} 
+          animate={{ opacity: 1, y: 0 }}>
+          Cloud Kitchen App
+        </motion.h1>
+        <p className="text-sm text-gray-600">Homemade Indian Meals at Your Doorstep</p>
+      </header>
+
+      <section className="mb-6">
+        <Card className="rounded-2xl shadow">
+          <CardContent className="p-4">
+            <h2 className="text-lg font-semibold mb-2">Place an Order</h2>
+            <form onSubmit={handleSubmit} className="grid gap-3">
+              <Input name="name" placeholder="Your Name" value={order.name} onChange={handleChange} required />
+              <Input name="phone" placeholder="Contact Number" value={order.phone} onChange={handleChange} required />
+              <Input name="address" placeholder="Delivery Address" value={order.address} onChange={handleChange} required />
+              <Input name="preference" placeholder="Meal Preference (Veg/Non-Veg/Combo)" value={order.preference} onChange={handleChange} required />
+              <Input name="date" type="date" value={order.date} onChange={handleChange} required />
+              <Button type="submit">Submit Order</Button>
+            </form>
+          </CardContent>
+        </Card>
+      </section>
+
+      <section className="bg-gray-100 p-4 rounded-2xl mb-6">
+        <h3 className="text-lg font-bold mb-2">Today's Specials</h3>
+        <ul className="text-sm space-y-1">
+          <li>✔ Veg Thali - £6</li>
+          <li>✔ Chicken Biryani - £7</li>
+          <li>✔ Paneer Butter Masala with Rice - £6.5</li>
+          <li>✔ Samosa & Chutney - £2</li>
+          <li>✔ Dal Tadka with Jeera Rice - £5.5</li>
+          <li>✔ Butter Naan & Chicken Curry - £7.5</li>
+          <li>✔ Chole Bhature - £6</li>
+          <li>✔ Gobi Paratha with Yogurt - £5</li>
+          <li>✔ Mutton Rogan Josh with Rice - £8</li>
+          <li>✔ Masala Dosa with Sambar - £6</li>
+        </ul>
+      </section>
+
+      <footer className="text-center text-xs text-gray-500">
+        © 2025 Cloud Kitchen Preston | Fresh Indian Meals Delivered
+      </footer>
+    </div>
+  );
+}
